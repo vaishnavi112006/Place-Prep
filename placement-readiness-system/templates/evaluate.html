@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Evaluation</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="/static/style.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+.badge-custom {
+    padding: 8px 12px;
+    border-radius: 10px;
+    margin: 5px;
+}
+</style>
+
+</head>
+
+<body id="body">
+
+<!-- Navbar -->
+<nav class="navbar px-4 d-flex justify-content-between">
+<h4>🚀 PlacePrep</h4>
+
+<div>
+<button onclick="toggleMode()" class="btn btn-outline-dark btn-sm">🌙</button>
+<a href="/dashboard" class="btn btn-outline-dark btn-sm">Back</a>
+</div>
+</nav>
+
+<div class="container mt-4">
+
+<h2 class="text-center mb-4">📊 Placement Evaluation</h2>
+
+<!-- Scores -->
+<div class="card p-4 mb-4">
+<h4>Your Scores</h4>
+
+<div class="row">
+<div class="col-md-3">Aptitude: <b>{{scores[0] if scores else 0}}</b></div>
+<div class="col-md-3">Coding: <b>{{scores[1] if scores else 0}}</b></div>
+<div class="col-md-3">Technical: <b>{{scores[2] if scores else 0}}</b></div>
+<div class="col-md-3">Communication: <b>{{scores[3] if scores else 0}}</b></div>
+</div>
+
+</div>
+
+<!-- Readiness -->
+<div class="card p-4 mb-4 text-center">
+<h4>Placement Readiness</h4>
+
+{% if readiness >= 75 %}
+<h2 class="text-success">{{readiness}}% ✅ Ready</h2>
+{% elif readiness >= 50 %}
+<h2 class="text-warning">{{readiness}}% ⚠️ Improve</h2>
+{% else %}
+<h2 class="text-danger">{{readiness}}% ❌ Not Ready</h2>
+{% endif %}
+
+</div>
+
+<!-- Eligible Companies -->
+<div class="card p-4 mb-4">
+
+<h4>🏢 Companies You Qualify For</h4>
+
+{% if eligible_companies %}
+{% for c in eligible_companies %}
+<span class="badge bg-success badge-custom">{{c}}</span>
+{% endfor %}
+{% else %}
+<p class="text-danger">No companies matched yet. Improve your skills.</p>
+{% endif %}
+
+</div>
+
+<!-- Improvement Plan -->
+<div class="card p-4 mb-4">
+<h4>🧠 Personalized Plan</h4>
+<p>{{improvement_plan}}</p>
+</div>
+
+<!-- Weak Areas -->
+<div class="card p-4 mb-4">
+<h4>⚠️ Focus Areas</h4>
+
+{% if weaknesses %}
+{% for w in weaknesses %}
+<span class="badge bg-danger badge-custom">{{w}}</span>
+{% endfor %}
+{% else %}
+<p class="text-success">No major weaknesses 🎉</p>
+{% endif %}
+
+</div>
+
+<!-- Suggestions -->
+<div class="card p-4 mb-4">
+<h4>📌 Suggestions</h4>
+<ul>
+{% for s in suggestions %}
+<li>{{s}}</li>
+{% endfor %}
+</ul>
+</div>
+
+<!-- Courses -->
+<div class="card p-4 mb-4">
+<h4>📚 Recommended Courses</h4>
+
+{% for c in courses %}
+<a href="{{c.link}}" target="_blank" class="btn btn-primary m-2">
+{{c.name}}
+</a>
+{% endfor %}
+
+</div>
+
+<!-- Chart -->
+<div class="card p-4 mb-4">
+<h4>📈 Performance Chart</h4>
+<canvas id="chart"></canvas>
+</div>
+
+<!-- Company Comparison -->
+<div class="card p-4 mb-4">
+
+<h4>📊 Score vs Company Requirements</h4>
+
+<table class="table table-bordered text-center">
+
+<tr>
+<th>Company</th>
+<th>Aptitude</th>
+<th>Coding</th>
+<th>Technical</th>
+<th>Communication</th>
+</tr>
+
+{% for company in companies %}
+<tr>
+<td>{{company[1]}}</td>
+
+<td class="{% if scores[0] >= company[2]|int %}text-success{% else %}text-danger{% endif %}">
+{{scores[0] if scores else 0}} / {{company[2]}}
+</td>
+
+<td class="{% if scores[1] >= company[3]|int %}text-success{% else %}text-danger{% endif %}">
+{{scores[1] if scores else 0}} / {{company[3]}}
+</td>
+
+<td class="{% if scores[2] >= company[4]|int %}text-success{% else %}text-danger{% endif %}">
+{{scores[2] if scores else 0}} / {{company[4]}}
+</td>
+
+<td class="{% if scores[3] >= company[5]|int %}text-success{% else %}text-danger{% endif %}">
+{{scores[3] if scores else 0}} / {{company[5]}}
+</td>
+
+</tr>
+{% endfor %}
+
+</table>
+
+</div>
+
+<div class="text-center">
+<a href="/dashboard" class="btn btn-success">Back to Dashboard</a>
+</div>
+
+</div>
+
+<script>
+
+// Dark mode
+window.onload = function(){
+if(localStorage.getItem("theme")==="dark"){
+document.body.classList.add("dark");
+}
+}
+
+function toggleMode(){
+document.body.classList.toggle("dark");
+localStorage.setItem("theme",
+document.body.classList.contains("dark")?"dark":"light");
+}
+
+// Chart (safe)
+new Chart(document.getElementById("chart"), {
+type: 'bar',
+data: {
+labels: ['Aptitude','Coding','Technical','Communication'],
+datasets: [{
+label: 'Scores',
+data: [
+{{scores[0] if scores else 0}},
+{{scores[1] if scores else 0}},
+{{scores[2] if scores else 0}},
+{{scores[3] if scores else 0}}
+]
+}]
+},
+options: {
+scales: {
+y: {
+beginAtZero: true,
+max: 100
+}
+}
+}
+});
+
+</script>
+
+</body>
+</html>

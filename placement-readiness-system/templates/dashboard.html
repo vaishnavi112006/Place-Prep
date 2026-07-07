@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Dashboard</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="/static/style.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+/* Big Cards */
+.big-card {
+    background: white;
+    border-radius: 20px;
+    padding: 35px;
+    text-align: center;
+    transition: 0.3s;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.big-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.big-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+/* Dark mode support */
+.dark .big-card {
+    background: #1f1f1f;
+    color: white;
+}
+
+</style>
+
+</head>
+
+<body id="body">
+
+<!-- Navbar -->
+<nav class="navbar px-4 d-flex justify-content-between">
+
+<h4>🚀 PlacePrep</h4>
+
+<div>
+<button onclick="toggleMode()" class="btn btn-outline-dark btn-sm">🌙</button>
+<a href="/logout" class="btn btn-danger btn-sm">Logout</a>
+</div>
+
+</nav>
+
+<div class="container mt-4">
+
+<h3>Welcome {{user}} 👋</h3>
+<p class="text-muted">Your placement preparation dashboard</p>
+
+<!-- Cards -->
+<div class="row g-4 mt-3">
+
+<div class="col-md-4">
+<div class="big-card" onclick="go('/enter_scores')">
+<div class="big-icon">📝</div>
+<h5>Enter Scores</h5>
+<p>Add your latest test results</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="big-card" onclick="go('/evaluate')">
+<div class="big-icon">📊</div>
+<h5>Evaluate Performance</h5>
+<p>Analyze readiness & skills</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="big-card" onclick="go('/progress')">
+<div class="big-icon">📈</div>
+<h5>Track Progress</h5>
+<p>View your improvement over time</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="big-card" onclick="go('/tests')">
+<div class="big-icon">📚</div>
+<h5>Practice Tests</h5>
+<p>Take external tests</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="big-card" onclick="go('/admin')">
+<div class="big-icon">⚙️</div>
+<h5>Admin Panel</h5>
+<p>Manage company data</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function go(path){
+    window.location.href = path;
+}
+
+// Dark mode
+window.onload = function(){
+    if(localStorage.getItem("theme")==="dark"){
+        document.body.classList.add("dark");
+    }
+}
+
+function toggleMode(){
+    document.body.classList.toggle("dark");
+
+    localStorage.setItem("theme",
+    document.body.classList.contains("dark") ? "dark" : "light");
+}
+
+</script>
+
+</body>
+</html>

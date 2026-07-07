@@ -1,0 +1,195 @@
+/* ---------- GLOBAL ---------- */
+body {
+    background: #f5f7fb;
+    font-family: 'Segoe UI', sans-serif;
+    transition: 0.3s;
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar {
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* ---------- CARDS ---------- */
+.card {
+    border-radius: 15px;
+    padding: 20px;
+    border: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+/* ---------- BIG DASHBOARD CARDS ---------- */
+.big-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    transition: 0.3s;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.big-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.big-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+/* ---------- BUTTONS ---------- */
+.btn {
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+/* ---------- INPUTS ---------- */
+input {
+    border-radius: 10px !important;
+}
+
+/* ---------- TABLE ---------- */
+table {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* ---------- PROFILE ---------- */
+.profile-box {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+/* ---------- DARK MODE ---------- */
+/* ---------- DARK MODE FIXED ---------- */
+
+.dark {
+    background: #121212 !important;
+    color: #e4e4e4 !important;
+}
+
+/* Navbar */
+.dark .navbar {
+    background: #1f1f1f !important;
+}
+
+/* Cards */
+.dark .card,
+.dark .big-card,
+.dark .profile-box {
+    background: #1e1e1e !important;
+    color: #e4e4e4 !important;
+}
+
+/* Text */
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5 {
+    color: #ffffff !important;
+}
+
+.dark p,
+.dark span,
+.dark li {
+    color: #cccccc !important;
+}
+
+/* Fix muted text */
+.dark .text-muted {
+    color: #aaaaaa !important;
+}
+
+/* ---------- TABLE FIX ---------- */
+.dark table {
+    background: #1e1e1e !important;
+    color: #e4e4e4 !important;
+}
+
+.dark table th {
+    background: #2a2a2a !important;
+    color: #ffffff !important;
+}
+
+.dark table td {
+    background: #1e1e1e !important;
+    color: #cccccc !important;
+}
+
+/* Zebra rows */
+.dark .table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: #222 !important;
+}
+
+/* ---------- INPUT FIX ---------- */
+.dark input,
+.dark .form-control {
+    background: #2a2a2a !important;
+    color: #ffffff !important;
+    border: 1px solid #444 !important;
+}
+
+/* Placeholder */
+.dark input::placeholder {
+    color: #888 !important;
+}
+
+/* ---------- BUTTON FIX ---------- */
+.dark .btn-outline-dark {
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+/* ---------- LINKS ---------- */
+.dark a {
+    color: #4dabf7 !important;
+}
+
+/* ---------- DROPDOWN FIX ---------- */
+.dark select,
+.dark option {
+    background: #2a2a2a !important;
+    color: white !important;
+}
+
+/* ---------- GLASS UI (LOGIN/REGISTER) ---------- */
+.glass-card {
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.15);
+    color: white;
+    padding: 30px;
+}
+
+/* ---------- ANIMATIONS ---------- */
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes slideUp {
+    from {transform: translateY(40px); opacity: 0;}
+    to {transform: translateY(0); opacity: 1;}
+}
+
+.fade-in {
+    animation: fadeIn 1s ease-in;
+}
+
+.slide-up {
+    animation: slideUp 0.8s ease;
+}
